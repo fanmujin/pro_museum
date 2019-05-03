@@ -1,0 +1,137 @@
+.container{
+		 margin: 0 auto;
+		 background: #FFF;
+		 padding-left: 100px;
+		 width: 800px;
+	}
+	.div-left{
+		position: absolute;
+		margin-left: -100px;
+		width: auto;
+		background: #FFF;
+	}
+	.div-right{
+		position: static;
+		width: 80%;
+		background: #FFF;
+		margin-left: 120px;
+		height: auto;
+	}
+	.img-a{
+		width: 480px;
+		height: 310px;
+		margin-left: 80px;
+	}
+	p{
+		text-indent: 30px;
+		margin: 20px 0px;
+		line-height: 2em;
+}
+
+.header{
+	width: 100%;
+	height: 500px;
+	background-color: black;
+}
+.left{
+	width: 245px;
+	height: auto;
+	background-color: antiquewhite;
+	margin-left:100px;
+	float: left;
+}
+.right{
+	width: 900px;
+	height: 700px;
+	background:#FFFFFF;
+	margin-left: 20px;
+	float: left;
+}
+.right_work{
+	width: 900px;;
+	height: auto;
+	background:#FFFFFF;
+	margin-left: 20px;
+	float: left;
+}
+ul {
+	list-style-type:circle;
+	
+}
+ul li
+{
+	background-repeat:no-repeat;
+	background-position:0px 5px; 
+	padding:20px 10px;
+	margin-left:30px;
+	
+}
+a.tow:link {text-decoration:none;color:black;}    /* unvisited link */
+a.tow:visited {color: black;} /* visited link */
+a.tow:hover {text-decoration:none;background:#8B8182}   /* mouse over link */
+a.tow:active {text-decoration:none;}  /* selected link */
+
+a.one:link {color:#848080;text-decoration:none;}
+a.one:visited {color: #848080; text-decoration: none;}
+a.one:hover { color:#454545;text-decoration:none;}
+/* table
+*/
+table.dataintable {
+	margin: 15px 0px;
+	border-collapse:collapse;
+	border:1px solid #aaa;
+	width:100%;
+	}
+
+table.dataintable th {
+	vertical-align:baseline;
+	padding:5px 15px 5px 6px;
+	background-color:#3F3F3F;
+	border:1px solid #3F3F3F;
+	text-align:left;
+	color:#fff;
+	}
+
+table.dataintable td {
+	vertical-align:text-top;
+	padding:6px 15px 6px 6px;
+	border:1px solid #aaa;
+	}
+
+table.dataintable tr:nth-child(odd) {
+	background-color:#F5F5F5;
+}
+
+table.dataintable tr:nth-child(even) {
+	background-color:#fff;
+}
+/*
+ul
+*/
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+ul.pagination li a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+ul.pagination li a:hover:not(.active) 
+	{background-color: #ddd;}
+div.center {
+    text-align: center;
+}

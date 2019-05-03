@@ -1,0 +1,26 @@
+.news{
+float: left;
+margin: 20px 20px;
+}
+#foot{
+	width: 100%;
+	height: 100px;
+	background-color: #565454;
+}
+.div_main{
+	width: 100%;
+	height: 600px;
+/*	background-color: antiquewhite;*/
+	
+}
+.div_son{
+	float: left;
+	width: 350px;
+	height: 600px;
+	margin-left: 40px;
+	margin-right: 20px;
+/*	background-color: aquamarine;*/
+}
+.roll_li{
+	margin-bottom:20px;
+}

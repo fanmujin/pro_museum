@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>名俗展示</title>
+<link rel="stylesheet" type="text/css" href="../css/culture.css">
+</head>
+<body background="../img/img-14.jpg">
+<div class="header">
+	<img style="align-content: center;" src="../img/img-11.jpg"/>
+</div>
+	<hr style="color:black;"/>
+<div class="left">
+<img style="align-content: center" src="../img/img-12.jpg">
+<p><a href="../index.html" class="one">返回首页</a></p>
+	<ul>
+		<li>
+			<a href="culturemusic.html" class="tow">传统音乐</a>
+		</li>
+		<li>
+			<a class="tow" href="culturexiqu.html">传统戏曲</a>
+		</li>
+		<li>
+			<a class="tow" href="culturedance.html">传统舞蹈</a>
+		</li>
+		<li>
+			<a class="tow" href="cultureart.html">传统技艺</a>
+		</li>
+		<li>
+			<a class="tow" href="culturelife.html">传统风俗</a>
+		</li>
+	</ul>
+	<img style="margin-left: 40px; " src="../img/img-13.png"/>
+	<p style="margin-left: 10px;">扫码关注我们</p>
+</div>
+<div class="right">
+	<p style="font-family:' 华文隶书';font-size: 28px;font-weight:800;color: #5B5858"  >
+		传统音乐
+	</p>
+	<hr style="margin-top: 10px;"/>
+	<div class="container">
+	  <div class="div-left">
+		<ul>
+			<li>
+				<a href="javascript:;" onclick="doAction1(this)" class="one" id="1">超化吹歌</a>
+			</li>
+			<li>
+				<a href="javascript:;" onclick="doAction1(this)" class="one" id="2">河洛大鼓</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction1(this)" class="one" id="3">西坪民歌</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction1(this)" class="one" id="4">硪工号子</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction1(this)" class="one" id="5">曹屯排鼓</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction1(this)" class="one" id="6">洛阳海神乐</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction1(this)" class="one" id="7">板头曲</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction1(this)" class="one" id="8">大相国寺梵乐</a>
+			</li>
+		</ul>
+	  </div>
+	  <div class="div-right" id="div-data">
+	  	
+	  </div>
+	</div>
+</div>
+
+<script src="../js/jquery-2.1.1.min.js"></script>
+<script>
+	//demo1，以原生的方法来请求后台数据，自己封装数据
+	function doAction(){
+		var view=document.getElementById("div-data");
+		chuFa("http://localhost:8080/typee/finAllType",function(myXMLHttpRequest){
+                var res = myXMLHttpRequest.responseText;
+                var jsonObj = eval("("+res+")");
+//				console.log("code:"+jsonObj.code);
+//				console.log("msg:"+jsonObj.msg);
+//				console.log("data:"+jsonObj.data);
+				var html="<ul>"
+				for(var item in jsonObj.data){
+					var name=jsonObj.data[item].cultureName;
+					var description=jsonObj.data[item].cultureDescription;
+					var date=jsonObj.data[item].createTime;
+					console.log("name:"+name);
+					html+="<li><span style='margin-right:20px;'>"+name+"</span><span class='cdate'>"+date+"</span><span>"+description+"</span></li>";
+				}
+				html+="</ul>"
+				view.innerHTML=html;
+				//alert(html);
+                //接下来就可以使用jsonObj这个json对象取出其中的属性值，做一些修改html元素value值等操作了。     
+        });
+	}
+	//以post方式发送数据为例
+	 function chuFa(request_url,fun) { //html元素事件触发的函数
+        var myXMLHttpRequest = null;
+        if (window.ActiveXObject) {
+            myXMLHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+        } else {
+            myXMLHttpRequest = new XMLHttpRequest();
+        }
+        var url = request_url;
+        var data = "key=val"; //val一般是从某个html元素中取出的value值
+        myXMLHttpRequest.open("get", url, true);
+        myXMLHttpRequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		console.log("0 state:"+myXMLHttpRequest.readyState);
+		console.log("0 status:"+myXMLHttpRequest.status);
+        myXMLHttpRequest.send(data);
+		myXMLHttpRequest.onreadystatechange = function(){
+			 if(myXMLHttpRequest.readyState == 4 && myXMLHttpRequest.status == 200) {
+				 fun(myXMLHttpRequest);
+			 }
+		};
+	
+    }
+	
+	//$("#div-data").click(doActionCH());
+	//Ajax方式请求后台数据 
+    function doAction1(ob){
+		console.log("called doActionCH()");
+		var id = $(ob).attr("id");
+	    $.ajax({
+               type: "GET",
+               url: "http://localhost:8080/culture/findCultureById/"+id,
+		       dataType:"json",
+               success: function(data){
+				  var jsonObj=data;
+                  var html="<div>"
+					var name=jsonObj.data["cultureName"];
+					var time=jsonObj.data["createTime"];
+					var description = jsonObj.data["cultureDescription"];
+				    var picture = jsonObj.data["culturePicture"]
+					console.log("name:"+name);
+					html+="<h1 style='text-align: center'>"+name+"</h1><p align='center'>"+time+"</p><img class='img-a' src='"+picture+"'/><p>"+description+"</p>";
+				    html+="</div>"
+				    console.log("html:"+html);
+				    $("#div-data").html(html);
+               },
+			   error:function(){
+				   alert("error");
+			   }
+          });
+    }
+</script>
+</body>
+</html>

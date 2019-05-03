@@ -1,0 +1,48 @@
+/* CSS Document */
+.menu{
+	margin:0px 10px 10px 5px;
+	float: left;
+	color: aliceblue;
+}
+.dropbtn {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+	margin-left: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+	width: 170px;
+	height: 50px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+	
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 170px;
+	margin-left: 10px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 12px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #737070}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #003D27;
+}

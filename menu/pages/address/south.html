@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>中原南部</title>
+<link rel="stylesheet" type="text/css" href="../../css/culture.css">
+</head>
+
+<body background="../../img/img-14.jpg">
+<div class="header">
+	<img style="align-content: center;" src="../../img/img-11.jpg"/>
+</div>
+	<hr style="color:black;"/>
+<div class="left">
+<img style="align-content: center" src="../../img/img-12.jpg">
+<p><a href="../../index.html" class="one">返回首页</a></p>
+	<ul>
+		<li>
+			<a href="north.html" class="tow">中原北部</a>
+		</li> 
+		<li>
+			<a class="tow" href="east.html">中原中东部</a>
+		</li>
+		<li>
+			<a class="tow" href="west.html">中原西部</a>
+		</li>
+		<li>
+			<a class="tow" href="south.html">中原南部</a>
+		</li>
+	</ul>
+	<img style="margin-left: 40px; " src="../../img/img-13.png"/>
+	<p style="margin-left: 10px;">扫码关注我们</p>
+</div>
+<div class="right">
+	<p style="font-family:' 华文隶书';font-size: 28px;font-weight:800;color: #5B5858"  >
+		中原南部
+	</p>
+	<hr style="margin-top: 10px;"/>
+	<div>
+	<div class="container">
+		<div class="div-left">
+			<ul>
+			<li>
+				<a href="javascript:" onClick="dofunction(this)" class="one" id="16">漯河</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="dofunction(this)" class="one" id="11">周口</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="dofunction(this)" class="one" id="10">驻马店</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="dofunction(this)" class="one" id="18">信阳</a>
+			</li>
+		</ul>
+		</div>
+		<div class="div-right" id="div-data">
+		暂无数据！	
+		</div></div>
+		
+	</div>
+</div>
+</body>
+<script src="../../js/jquery-2.1.1.min.js"></script>
+<script>
+	function dofunction(ob){
+		var id = $(ob).attr("id");
+		if(id == null){
+			id = 16;
+		}
+		$.ajax({
+			type:"GET",
+			url:"http://localhost:8080/Address/findAddressById/"+id,
+			dataType:"json",
+               success: function(data){
+				  var jsonObj=data;
+                  var html="<div>"
+					var addressName=jsonObj.data["addressName"];
+					var createTime=jsonObj.data["createTime"];
+				    var address = jsonObj.data["addressPicture"];
+				    var culturelist = jsonObj.data["cultureList"];
+					console.log("name:"+addressName);
+					html+="<h1 style='text-align: center'>"+addressName+"</h1><p align='center'>"+createTime+"</p><p>"+address+"</p><table class='dataintable'><tr><th>编号</th><th>文化名称</th><th>级别</th><th>收录时间</th><th>查看详情</th></tr>";
+				   for(var item in culturelist){
+						var id = culturelist[item].id;
+					    var name = culturelist[item].cultureName;
+					    var cultureLevel = culturelist[item].cultureLevel;
+					    var time = culturelist[item].createTime;
+					    var typeId = culturelist[item].typeId;
+					    var turn = "null";
+					    switch(typeId){
+							case 1: turn = "../culturemusic.html";
+								break;
+							case 2: turn = "../culturedance.html";
+								break;
+							case 3: turn = "../culturexiqu.html";
+								break;
+							case 4: turn = "../cultureart.html";
+								break;
+							case 5: turn = "../culturelife.html";
+								break;
+						}			
+					   html+="<tr><td><i>"+id+"</i></td><td>"+name+"</td><td>"+cultureLevel+"</td><td>"+time+"</td><td><a href='"+turn+"' class='one'>查看</a></td></tr>"
+						console.log("itme"+id);
+					}
+				    html+="</table></div>"
+				    console.log("html:"+html);
+				    $("#div-data").html(html);
+               },
+			   error:function(){
+				   alert("error");
+			   }
+		});
+	}
+	window.onload = dofunction;
+	</script>
+</html>

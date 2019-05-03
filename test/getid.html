@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>jq获取id</title>
+
+<script type="text/javascript" src="../menu/js/jquery-2.1.1.min.js"></script>
+
+<script type="text/javascript">
+
+$(function(){
+
+$("input").click(function(){
+
+var id = $(this).attr("id"); //获取点击的id
+
+alert("点击的id是:"+id);
+
+})
+
+})
+
+</script>
+
+</head>
+
+<body>
+
+<input type="button" id="test" value="点击获取id">
+
+</body>
+
+</html>

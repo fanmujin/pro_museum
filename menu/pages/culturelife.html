@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>名俗展示</title>
+<link rel="stylesheet" type="text/css" href="../css/culture.css">
+</head>
+<body background="../img/img-14.jpg">
+<div class="header">
+	<img style="align-content: center;" src="../img/img-11.jpg"/>
+</div>
+	<hr style="color:black;"/>
+<div class="left">
+<img style="align-content: center" src="../img/img-12.jpg">
+<p><a href="../index.html" class="one">返回首页</a></p>
+	<ul>
+		<li>
+			<a href="culturemusic.html" class="tow">传统音乐</a>
+		</li>
+		<li>
+			<a class="tow" href="culturexiqu.html">传统戏曲</a>
+		</li>
+		<li>
+			<a class="tow" href="culturedance.html">传统舞蹈</a>
+		</li>
+		<li>
+			<a class="tow" href="cultureart.html">传统技艺</a>
+		</li>
+		<li>
+			<a class="tow" href="culturelife.html">传统风俗</a>
+		</li>
+	</ul>
+	<img style="margin-left: 40px; " src="../img/img-13.png"/>
+	<p style="margin-left: 10px;">扫码关注我们</p>
+</div>
+<div class="right">
+	<p style="font-family:' 华文隶书';font-size: 28px;font-weight:800;color: #5B5858"  >
+		传统风俗
+	</p>
+	<hr style="margin-top: 10px;"/>
+	<div class="container">
+		<div class="div-left">
+			<ul>
+			<li>
+				<a href="javascript:" onClick="doAction(this)" class="one" id="33">高火抬桥</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction(this)" class="one" id="34">十六挂转秋</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction(this)" class="one" id="35">尉氏渔鼓道情</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction(this)" class="one" id="36">泼陂河旱船</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction(this)" class="one" id="37">宣讲圣谕</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction(this)" class="one" id="38">洛阳海神乐</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction(this)" class="one" id="39">肘歌</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction(this)" class="one" id="40">皇帝故里拜祖大典</a>
+			</li>
+			<li>
+				<a href="javascript:" onClick="doAction(this)" class="one" id="41">关公信俗</a>
+			</li>
+			</ul>
+		</div>
+		<div class="div-right" id="div-data"></div>
+	</div>		
+	</div>
+</body>
+<script src="../js/jquery-2.1.1.min.js"></script>
+<script>
+	function doAction(ob){
+		var id = $(ob).attr("id");
+		$.ajax({
+			type:"GET",
+			url:"http://localhost:8080/culture/findCultureById/"+id,
+			dataType:"JSON",
+			success: function(data){
+				  var jsonObj=data;
+                  var html="<div>"
+					var name=jsonObj.data["cultureName"];
+					var time=jsonObj.data["createTime"];
+					var description = jsonObj.data["cultureDescription"];
+				    var picture = jsonObj.data["culturePicture"]
+					console.log("name:"+name);
+					html+="<h1 style='text-align: center'>"+name+"</h1><p align='center'>"+time+"</p><img class='img-a' src='"+picture+"'/><p>"+description+"</p>";
+				    html+="</div>"
+				    console.log("html:"+html);
+				    $("#div-data").html(html);
+               },
+			   error:function(){
+				   alert("error");
+			   }
+		});
+	}
+	</script>
+</html>
