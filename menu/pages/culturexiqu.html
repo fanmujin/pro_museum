@@ -83,7 +83,7 @@
 		var id = $(ob).attr("id");
 		$.ajax({
 			type:"GET",
-			url:"http://localhost:8080/culture/findCultureById/"+id,
+			url:"http://localhost:8080/culture/findCultureById?id="+id,
 			dataType:"JSON",
 			success: function(data){
 				  var jsonObj=data;

@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <title>新闻纪实</title>
 <link rel="stylesheet" type="text/css" href="../../css/culture.css">
+<link rel="stylesheet" type="text/css" href="../../css/kkpager_blue.css" />
+<style>
+	</style>
+	<script>
+	 function dofirst(){
+		 alert("1");
+	 }
+	</script>
+	
 </head>
 
 <body background="../../img/img-14.jpg">
@@ -19,10 +28,10 @@
 			<a href="note.html" class="tow">通知公告</a>
 		</li> 
 		<li>
-			<a class="tow" href="extend.html">展览动态</a>
+			<a href="javascript:" class="tow" onClick="dofunction2(this)">展览动态</a>
 		</li>
 		<li>
-			<a class="tow" href="pro.html">学术研究</a>
+			<a href="pro.html" class="tow">学术研究</a>
 		</li>
 	</ul>
 	<img style="margin-left: 40px; " src="../../img/img-13.png"/>
@@ -30,25 +39,80 @@
 </div>
 <div class="right">
 	<p style="font-family:' 华文隶书';font-size: 28px;font-weight:800;color: #5B5858"  >
-		展览动态
+		公告栏
 	</p>
 	<hr style="margin-top: 10px;"/>
-	<div>
-		<ul>
-			<li>
-				<a href="" class="one">黄海涛：在百名非遗传承人黄帝故里归宗</a>
-			</li>
-			<li>
-				<a class="one">黄海涛：在百名非遗传承人黄帝故里归宗</a>
-			</li>
-			<li>
-				<a class="one">黄海涛：在百名非遗传承人黄帝故里归宗</a>
-			</li>
-			<li>
-				<a class="one">黄海涛：在百名非遗传承人黄帝故里归宗</a>
-			</li>
-		</ul>
-	</div>
+      <div id="div-data">暂无通知！</div>
+      <div style="width:800px;margin:0 auto;"><div id="kkpager" style="position: absolute; top: 950px;"></div></div>
 </div>
 </body>
+<script src="../../js/jquery-2.1.1.min.js"></script>
+<script src="../../js/kkpager.min.js"></script>
+<script>
+/*
+	展览动态
+	*/
+	function dofunction2(ob){
+//		var id = $(ob).attr("id");
+//		alert(id);
+		$.ajax({
+			type:"GET",
+			url:"http://localhost:8080/dispaly/findAllDisplay",
+			dataType:"JSON",
+			success: function(data){
+			      var jsonObj=data;
+				  var perPage=5; //每页的条数
+				  var pageNo = 1; //初始页码
+				  var totalRecords = jsonObj.data.length;
+				  var totalPage = Math.ceil(totalRecords/perPage)
+				  $(function(){
+	                    kkpager.generPageHtml({
+							// pagerid : 'kkpager1',
+		                     pno : pageNo,
+		                       //总页码
+		                     total : totalPage,
+		                    //总数据条数
+		                     totalRecords : totalRecords,
+		                     mode : 'click',//默认值是link，可选link或者click
+		                     click : function(n){
+			                    // do something
+			                    //手动选中按钮
+					
+			                      this.selectPage(n);
+								  //alert(n);
+								  fresh_page2(jsonObj,totalPage,perPage,n);
+			                      return false;
+		                      }               
+	                     });
+                    });
+				    //TODO 
+				    fresh_page2(jsonObj,totalPage,perPage,pageNo);
+               },
+			   error:function(){
+				   alert("error");
+			   }
+		});
+	}
+	
+	function fresh_page2(jsonObj,totalPage,perPage,n){
+		   console.log("data"+jsonObj);
+           var html="<ul>"
+		   var it=n*perPage;
+		   //alert(jsonObj)
+		   var end=(it < jsonObj.data.length)? it : jsonObj.data.length; 
+		   for(var item=(it-perPage);item<end;item++){
+		   //for(var i=(it-perPage)+1;i<=it;i++){
+	       //for(var item in jsonObj.data){
+				var id=jsonObj.data[item].id;
+			    var displayTitle = jsonObj.data[item].displayTitle;
+				var createTime = jsonObj.data[item].createTime;
+				html+="<li><a href='http://localhost:8080/View/finddisplayById/"+id
+							+"?origin="+window.location+"' class='one'>"+displayTitle+"                     "+createTime+"</a></li>"
+			}
+		    html+="</ul>"
+		    console.log("html:"+html);
+		    $("#div-data").html(html);
+	}
+	window.onload = dofunction2;
+	</script>
 </html>

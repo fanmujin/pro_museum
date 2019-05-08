@@ -25,13 +25,13 @@
 <p><a href="../../index.html" class="one">返回首页</a></p>
 	<ul>
 		<li>
-			<a href="javascript:" class="tow" onClick="dofunction1(this)" id="notify/findAll">通知公告</a>
+			<a href="javascript:" class="tow" onClick="dofunction1(this)">通知公告</a>
 		</li> 
 		<li>
-			<a href="javascript:" class="tow" onClick="dofunction2(this)" id="dispaly/findAllDisplay" >展览动态</a>
+			<a href="extend.html" class="tow">展览动态</a>
 		</li>
 		<li>
-			<a href="javascript:" class="tow" onClick="dofunction3(this)" id="institutions/getAllInstitution">学术研究</a>
+			<a href="pro.html" class="tow">学术研究</a>
 		</li>
 	</ul>
 	<img style="margin-left: 40px; " src="../../img/img-13.png"/>
@@ -43,14 +43,13 @@
 	</p>
 	<hr style="margin-top: 10px;"/>
       <div id="div-data">暂无通知！</div>
-      <div style="width:800px;margin:0 auto;">
-        <div id="kkpager"></div>
-      </div>
+      <div style="width:800px;margin:0 auto;"><div id="kkpager" style="position: absolute; top: 950px;"></div></div>
 </div>
 </body>
 <script src="../../js/jquery-2.1.1.min.js"></script>
 <script src="../../js/kkpager.min.js"></script>
 <script>
+	
 	function dofunction1(ob){
 		$.ajax({
 			type:"GET",
@@ -61,10 +60,10 @@
 				  var perPage=5; //每页的条数
 				  var pageNo = 1; //初始页码
 				  var totalRecords = jsonObj.data.length;
-				  var head=totalRecords/perPage;
-				  var totalPage =(totalRecords%perPage >0 )? (head+1) : head;
+				  var totalPage = Math.ceil(totalRecords/perPage)
 				  $(function(){
 	                    kkpager.generPageHtml({
+							 //pagerid : 'kkpager0',
 		                     pno : pageNo,
 		                       //总页码
 		                     total : totalPage,
@@ -94,7 +93,8 @@
 		   console.log("data"+jsonObj);
            var html="<ul>"
 		   var it=n*perPage;
-		   for(var item=(it-perPage);item<it;item++){
+		   var end=(it < jsonObj.data.length)? it : jsonObj.data.length; 
+		   for(var item=(it-perPage);item<end;item++){
 		   //for(var i=(it-perPage)+1;i<=it;i++){
 	       //for(var item in jsonObj.data){
 				var id=jsonObj.data[item].id;
@@ -108,124 +108,6 @@
 		    $("#div-data").html(html);
 	}
 	
-	/*
-	展览动态
-	*/
-	function dofunction2(ob){
-		var id = $(ob).attr("id");
-		$.ajax({
-			type:"GET",
-			url:"http://localhost:8080/"+id,
-			dataType:"JSON",
-			success: function(data){
-			      var jsonObj=data;
-				  var perPage=5; //每页的条数
-				  var pageNo = 1; //初始页码
-				  var totalRecords = jsonObj.data.length;
-				  var head=totalRecords/perPage;
-				  var totalPage =(totalRecords%perPage >0 )? (head+1) : head;
-				  $(function(){
-	                    kkpager.generPageHtml({
-		                     pno : pageNo,
-		                       //总页码
-		                     total : totalPage,
-		                    //总数据条数
-		                     totalRecords : totalRecords,
-		                     mode : 'click',//默认值是link，可选link或者click
-		                     click : function(n){
-			                    // do something
-			                    //手动选中按钮
-			                      this.selectPage(n);
-								  //alert(n);
-								  fresh_page2(jsonObj,totalPage,perPage,n);
-			                      return false;
-		                      }               
-	                     });
-                    });
-				    //TODO 
-				    fresh_page2(jsonObj,totalPage,perPage,pageNo);
-               },
-			   error:function(){
-				   alert("error");
-			   }
-		});
-	}
-	
-	function fresh_page2(jsonObj,totalPage,perPage,n){
-		   console.log("data"+jsonObj);
-           var html="<ul>"
-		   var it=n*perPage;
-		   for(var item=(it-perPage);item<it;item++){
-		   //for(var i=(it-perPage)+1;i<=it;i++){
-	       //for(var item in jsonObj.data){
-				var id=jsonObj.data[item].id;
-			    var displayTitle = jsonObj.data[item].displayTitle;
-				var createTime = jsonObj.data[item].createTime;
-				html+="<li><a href='http://localhost:8080/View/finddisplayById/"+id
-							+"?origin="+window.location+"' class='one'>"+displayTitle+"                     "+createTime+"</a></li>"
-			}
-		    html+="</ul>"
-		    console.log("html:"+html);
-		    $("#div-data").html(html);
-	}
-/*
-学术研究*/
-	function dofunction3(ob){
-	//	var id = $(ob).attr("id");
-		$.ajax({
-			type:"GET",
-			url:"http://localhost:8080/institutions/getAllInstitution",
-			dataType:"JSON",
-			success: function(data){
-				  var jsonObj=data;
-				  var perPage=5; //每页的条数
-				  var pageNo = 1; //初始页码
-				  var totalRecords = jsonObj.data.length;
-				  var head=totalRecords/perPage;
-				  var totalPage =(totalRecords%perPage >0 )? (head+1) : head;
-				 $(function(){
-	                    kkpager.generPageHtml({
-		                     pno : pageNo,
-		                       //总页码
-		                     total : totalPage,
-		                    //总数据条数
-		                     totalRecords : totalRecords,
-		                     mode : 'click',//默认值是link，可选link或者click
-		                     click : function(n){
-			                    // do something
-			                    //手动选中按钮
-			                      this.selectPage(n);
-								  //alert(n);
-								  fresh_page3(jsonObj,totalPage,perPage,n);
-			                      return false;
-		                      }               
-	                     });
-                    });
-				 //TODO 
-				    fresh_page3(jsonObj,totalPage,perPage,pageNo);
-               },
-
-			   error:function(){
-				   alert("error");
-			   }
-		});
-	}
-	function fresh_page3(jsonObj,totalPage,perPage,n){
-		 var html="<ul>"
-		   var it=n*perPage;
-		   for(var item=(it-perPage);item<it;item++){
-		   //for(var i=(it-perPage)+1;i<=it;i++){
-	       //for(var item in jsonObj.data){
-				var id=jsonObj.data[item].id;
-				var reportName = jsonObj.data[item].reportName;
-				var createTime = jsonObj.data[item].createTime;
-					html+="<li><a href='http://localhost:8080/View/findInstitutionById/"+id
-							+"?origin="+window.location+"' class='one'>"+reportName+"                    "+createTime+"</a></li>"
-			}
-		    html+="</ul>"
-		    console.log("html:"+html);
-		    $("#div-data").html(html);
-	}
 	window.onload = dofunction1;
 	</script>
 </html>
