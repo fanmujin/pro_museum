@@ -1,0 +1,35 @@
+/* CSS Document */
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{display:inline-table;}/* Hides from IE-mac \*/
+*html .clearfix{height:1%;}
+.clearfix{display:block;}/* End hide from IE-mac */
+*+html .clearfix{min-height:1%;}
+/* lanrenzhijia */
+.lanrenzhijia{width:1250px;margin:10px auto 0 auto;overflow:hidden;}
+.lanrenzhijia ul{width:1250px;}
+.lanrenzhijia ul li{
+	float:left;
+	margin-right:6px;	
+	marginbottom:10px;
+	display:inline;
+	width:400px;
+	height:300px;
+	overflow:hidden;
+	position:relative;
+    border-radius: 20%;}
+.lanrenzhijia ul li .photo{width:400px;height:300px;overflow:hidden;}
+.lanrenzhijia .rsp{
+	width:400px;
+	height:300px;
+	overflow:hidden;
+	position: absolute;
+	background:#000;
+	top:0px;
+	left:0px;
+    margin-top: 20px; 
+	margin-left:20px;
+    border-radius: 20%;}
+.lanrenzhijia .text{position:absolute;width:400px;height:300px;left:-300px;top:0px;overflow:hidden;}
+.lanrenzhijia .text h3{width:400px;margin-top:70px;margin-left: 20px;margin-right: 20px; height:50px;line-height:50px;text-align:center;color:#FFFFFF;font-size:20px;}
+.lanrenzhijia .text a{text-decoration:none}
+.lanrenzhijia .text div{text-align:center;color:#FFFFFF;font-size:18px;}

@@ -4,7 +4,7 @@ margin: 20px 20px;
 }
 #foot{
 	width: 100%;
-	height: 100px;
+	height: 80px;
 	background-color: #565454;
 }
 .div_main{
@@ -23,4 +23,9 @@ margin: 20px 20px;
 }
 .roll_li{
 	margin-bottom:20px;
+	
 }
+.roll_li a:link {color:#000000;}      /* 未访问链接*/
+.roll_li a:visited {color:#B30407;}  /* 已访问链接 */
+.roll_li a:hover {color:#2F4156;}  /* 鼠标移动到链接上 */
+.roll_li a:active {color:#2F4156;}  /* 鼠标点击时 */

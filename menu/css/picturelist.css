@@ -1,6 +1,6 @@
 /* CSS Document */
 div.img {
-    border: 0px solid #ccc;
+/*    border: 0px solid #ccc;*/
 	margin-left: 10px;
 	margin-top: 40px;
 }
@@ -17,6 +17,7 @@ div.img img {
 div.desc {
     padding: 15px;
     text-align: center;
+	color: #000000;
 }
 
 * {
